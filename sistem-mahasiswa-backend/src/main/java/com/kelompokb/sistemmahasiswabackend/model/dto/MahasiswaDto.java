@@ -8,7 +8,13 @@ public class MahasiswaDto {
 
     private Integer idJurusan;
 
+    private String namaJurusan;
+
     private Integer idUser;
+
+    private String username;
+
+    private String role;
 
     public Integer getIdMhs() {
         return idMhs;
@@ -34,6 +40,14 @@ public class MahasiswaDto {
         this.idJurusan = idJurusan;
     }
 
+    public String getNamaJurusan() {
+        return namaJurusan;
+    }
+
+    public void setNamaJurusan(String namaJurusan) {
+        this.namaJurusan = namaJurusan;
+    }
+
     public Integer getIdUser() {
         return idUser;
     }
@@ -41,4 +55,21 @@ public class MahasiswaDto {
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 }

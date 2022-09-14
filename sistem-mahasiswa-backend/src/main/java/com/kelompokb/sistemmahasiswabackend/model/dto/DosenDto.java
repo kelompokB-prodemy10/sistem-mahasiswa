@@ -8,7 +8,13 @@ public class DosenDto {
 
     private Integer idJurusan;
 
+    private String namaJurusan;
+
     private Integer idUser;
+
+    private String username;
+
+    private String role;
 
     public Integer getIdDosen() {
         return idDosen;
@@ -40,5 +46,29 @@ public class DosenDto {
 
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
+    }
+
+    public String getNamaJurusan() {
+        return namaJurusan;
+    }
+
+    public void setNamaJurusan(String namaJurusan) {
+        this.namaJurusan = namaJurusan;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
