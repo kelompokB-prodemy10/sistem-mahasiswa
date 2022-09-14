@@ -17,8 +17,17 @@ public class Dosen {
     @Column(name = "id_jurusan")
     private Integer idJurusan;
 
+    @OneToOne
+    @JoinColumn(name = "id_jurusan", insertable = false, updatable = false)
+    private Jurusan jurusan;
+
     @Column(name = "id_user")
     private Integer idUser;
+
+    @OneToOne
+    @JoinColumn(name = "id_user", insertable = false, updatable = false)
+    private User user;
+
 
     public Integer getIdDosen() {
         return idDosen;
@@ -50,5 +59,21 @@ public class Dosen {
 
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
+    }
+
+    public Jurusan getJurusan() {
+        return jurusan;
+    }
+
+    public void setJurusan(Jurusan jurusan) {
+        this.jurusan = jurusan;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
