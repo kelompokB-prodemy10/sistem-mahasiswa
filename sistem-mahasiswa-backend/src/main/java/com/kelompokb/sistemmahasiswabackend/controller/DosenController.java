@@ -85,7 +85,11 @@ public class DosenController {
         dto.setIdDosen(entity.getIdDosen());
         dto.setName(entity.getName());
         dto.setIdJurusan(entity.getIdJurusan());
+        dto.setNamaJurusan(entity.getJurusan().getNamaJurusan());
         dto.setIdUser(entity.getIdUser());
+        dto.setUsername(entity.getUser().getUsername());
+        dto.setRole(entity.getUser().getRole());
+
 
         return dto;
     }
