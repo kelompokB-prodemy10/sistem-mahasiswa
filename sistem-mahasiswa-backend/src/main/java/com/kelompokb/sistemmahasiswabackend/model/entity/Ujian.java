@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class Ujian extends UjianDto {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ujian_generator")
+    @SequenceGenerator(name = "ujan_generator", sequenceName = "seq_ujian", initialValue = 1, allocationSize = 1)
     @Column(name = "id_ujian")
     private Integer idUjian;
     @Column(name = "kd_matkul")

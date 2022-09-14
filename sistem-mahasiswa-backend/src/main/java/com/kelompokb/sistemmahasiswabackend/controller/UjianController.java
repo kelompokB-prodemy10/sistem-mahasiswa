@@ -5,7 +5,6 @@ import com.kelompokb.sistemmahasiswabackend.model.dto.UjianDto;
 import com.kelompokb.sistemmahasiswabackend.model.entity.Ujian;
 import com.kelompokb.sistemmahasiswabackend.repository.UjianRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
