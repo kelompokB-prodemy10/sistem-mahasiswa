@@ -22,10 +22,10 @@ public class LoginController {
     @PostMapping("/login")
     public DefaultResponse login(@RequestBody LoginDto loginDto) {
         DefaultResponse response = new DefaultResponse();
-        Optional<User> optionalKaryawanUsername = userRepo.findByUsername(loginDto.getUsername());
-        Optional<User> optionalKaryawanPassword = userRepo.findByPassword(loginDto.getPassword());
-        if (optionalKaryawanUsername.isPresent()) {
-            if (optionalKaryawanPassword.isPresent()) {
+        Optional<User> optionalUserUsername = userRepo.findByUsername(loginDto.getUsername());
+        Optional<User> optionalUserPassword = userRepo.findByPassword(loginDto.getPassword());
+        if (optionalUserUsername.isPresent()) {
+            if (optionalUserPassword.isPresent()) {
                 response.setStatus(Boolean.TRUE);
                 response.setPesan("Login Berhasil");
             } else {
@@ -38,7 +38,6 @@ public class LoginController {
         }
         return response;
     }
-
 
 }
 

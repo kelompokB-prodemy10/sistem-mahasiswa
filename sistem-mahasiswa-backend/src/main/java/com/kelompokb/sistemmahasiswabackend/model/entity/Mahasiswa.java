@@ -15,10 +15,10 @@ public class Mahasiswa {
     private String name;
 
     @Column(name = "id_jurusan")
-    private String idJurusan;
+    private Integer idJurusan;
 
     @Column(name = "id_user")
-    private String idUser;
+    private Integer idUser;
 
     public Integer getIdMhs() {
         return idMhs;
@@ -36,19 +36,19 @@ public class Mahasiswa {
         this.name = name;
     }
 
-    public String getIdJurusan() {
+    public Integer getIdJurusan() {
         return idJurusan;
     }
 
-    public void setIdJurusan(String idJurusan) {
+    public void setIdJurusan(Integer idJurusan) {
         this.idJurusan = idJurusan;
     }
 
-    public String getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 }
