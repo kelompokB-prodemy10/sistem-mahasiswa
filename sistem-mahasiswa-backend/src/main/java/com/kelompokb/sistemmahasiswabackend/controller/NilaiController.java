@@ -64,7 +64,7 @@ public class NilaiController {
         return df;
     }
 
-    @DeleteMapping("/delete/{idDosen}")
+    @DeleteMapping("/delete/{idNilai}")
     public DefaultResponse deleteById (@PathVariable Integer idNilai) {
         DefaultResponse df = new DefaultResponse();
         Optional<Nilai> nilaiOptional = nilaiRepo.findById(idNilai) ;
