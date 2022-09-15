@@ -35,7 +35,7 @@ public class LoginController {
         return response;
     }
 
-    @GetMapping("/user/{idUser}")
+    @GetMapping("/{idUser}")
     public UserDto getUserById(@PathVariable Integer idUser) {
         Optional<User> optionalUser = userRepo.findById(idUser);
         UserDto dto = new UserDto();
@@ -59,6 +59,7 @@ public class LoginController {
         } else {
             userRepo.save(user);
             df.setStatus(Boolean.TRUE);
+            userDto.setIdUser(user.getIdUser());
             df.setData(userDto);
             df.setMessage("Data Tersimpan");
         }
@@ -73,5 +74,19 @@ public class LoginController {
         user.setRole(userDto.getRole());
 
         return user;
+    }
+
+    @PostMapping("/logout")
+    public DefaultResponse logout(@RequestBody UserDto userDto){
+        DefaultResponse df = new DefaultResponse();
+        Optional<User> optionalUser = userRepo.findByUsernameAndPassword(userDto.getUsername(), userDto.getPassword());
+        if(optionalUser.isPresent()){
+            df.setStatus(Boolean.TRUE);
+            df.setMessage("Logout Berhasil");
+        } else {
+            df.setStatus(Boolean.FALSE);
+            df.setMessage("Error silahkan login terlebih dahulu");
+        }
+        return df;
     }
 }
