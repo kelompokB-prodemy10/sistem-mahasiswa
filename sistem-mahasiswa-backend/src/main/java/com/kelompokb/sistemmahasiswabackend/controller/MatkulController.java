@@ -1,12 +1,9 @@
 package com.kelompokb.sistemmahasiswabackend.controller;
 
 import com.kelompokb.sistemmahasiswabackend.model.dto.DefaultResponse;
-import com.kelompokb.sistemmahasiswabackend.model.dto.JurusanDto;
 import com.kelompokb.sistemmahasiswabackend.model.dto.MatkulDto;
-import com.kelompokb.sistemmahasiswabackend.model.entity.Jurusan;
 import com.kelompokb.sistemmahasiswabackend.model.entity.Matkul;
 import com.kelompokb.sistemmahasiswabackend.repository.MatkulRepo;
-import com.kelompokb.sistemmahasiswabackend.service.ServiceJurusanImp;
 import com.kelompokb.sistemmahasiswabackend.service.ServiceMatkulImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,10 +30,10 @@ public class MatkulController {
         DefaultResponse<MatkulDto> response = new DefaultResponse<>();
         Optional<Matkul> optional = matkulRepo.findById(matkulDto.getIdMatkul());
         if (optional.isPresent()) {
-            response.setPesan("Error, Data Telah Tersedia");
+            response.setMessage("Error, Data Telah Tersedia");
         } else {
             matkulRepo.save(matkul);
-            response.setPesan("Data Jurusan Berhasil Tersimpan");
+            response.setMessage("Data Jurusan Berhasil Tersimpan");
             response.setData(matkulDto);
         }
         return response;
@@ -57,10 +54,10 @@ public class MatkulController {
         Optional<Matkul> matkulOps = matkulRepo.findById(idMatkul);
         if (matkulOps.isPresent()) {
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Jurusan Yang Anda Pilih Telah Tersimpan");
+            df.setMessage("Jurusan Yang Anda Pilih Telah Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Jurusan Yang Anda Pilih Tidak Tersedia");
+            df.setMessage("Jurusan Yang Anda Pilih Tidak Tersedia");
         }
         return df;
     }

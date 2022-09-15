@@ -22,16 +22,10 @@ public class MahasiswaController {
     public DefaultResponse<MahasiswaDto> saveMahasiswa(@RequestBody MahasiswaDto mahasiswaDto) {
         Mahasiswa mahasiswa = convertDtoToEntity(mahasiswaDto);
         DefaultResponse<MahasiswaDto> df = new DefaultResponse<>();
-        Optional<Mahasiswa> optionalMahasiswa = mahasiswaRepo.findById(mahasiswaDto.getIdMhs());
-        if (optionalMahasiswa.isPresent()) {
-            df.setStatus(Boolean.FALSE);
-            df.setPesan("Gagal, Data Sudah Terdaftar");
-        } else {
             mahasiswaRepo.save(mahasiswa);
             df.setStatus(Boolean.TRUE);
             df.setData(mahasiswaDto);
-            df.setPesan("Data Tersimpan");
-        }
+            df.setMessage("Data Tersimpan");
         return df;
     }
 
@@ -57,10 +51,10 @@ public class MahasiswaController {
             mahasiswaRepo.save(mahasiswa);
             df.setStatus(Boolean.TRUE);
             df.setData(mahasiswaDto);
-            df.setPesan("Perubahan Berhasil Tersimpan");
+            df.setMessage("Perubahan Berhasil Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("ID Tidak Ditemukan");
+            df.setMessage("ID Tidak Ditemukan");
         }
         return df;
     }
@@ -72,10 +66,10 @@ public class MahasiswaController {
         if (optionalMahasiswa.isPresent()) {
             mahasiswaRepo.delete(optionalMahasiswa.get());
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Data Berhasil Dihapus");
+            df.setMessage("Data Berhasil Dihapus");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Data Tidak Ditemukan");
+            df.setMessage("Data Tidak Ditemukan");
         }
         return df;
     }

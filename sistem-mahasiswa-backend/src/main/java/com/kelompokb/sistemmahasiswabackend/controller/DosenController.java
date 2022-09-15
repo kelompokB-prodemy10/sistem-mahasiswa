@@ -22,16 +22,10 @@ public class DosenController {
     public DefaultResponse<DosenDto> saveDosen(@RequestBody DosenDto dosenDto) {
         Dosen dosen = convertDtoToEntity(dosenDto);
         DefaultResponse<DosenDto> df = new DefaultResponse<>();
-        Optional<Dosen> optionalDosen = dosenRepo.findById(dosenDto.getIdDosen());
-        if (optionalDosen.isPresent()) {
-            df.setStatus(Boolean.FALSE);
-            df.setPesan("Gagal, Data Sudah Terdaftar");
-        } else {
-            dosenRepo.save(dosen);
-            df.setStatus(Boolean.TRUE);
-            df.setData(dosenDto);
-            df.setPesan("Data Tersimpan");
-        }
+        dosenRepo.save(dosen);
+        df.setStatus(Boolean.TRUE);
+        df.setData(dosenDto);
+        df.setMessage("Data Tersimpan");
         return df;
     }
 
@@ -57,10 +51,10 @@ public class DosenController {
             dosenRepo.save(dosen);
             df.setStatus(Boolean.TRUE);
             df.setData(dosenDto);
-            df.setPesan("Perubahan Berhasil Tersimpan");
+            df.setMessage("Perubahan Berhasil Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("ID Tidak Ditemukan");
+            df.setMessage("ID Tidak Ditemukan");
         }
         return df;
     }
@@ -72,10 +66,10 @@ public class DosenController {
         if (optionalDosen.isPresent()) {
             dosenRepo.delete(optionalDosen.get());
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Data Berhasil Dihapus");
+            df.setMessage("Data Berhasil Dihapus");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Data Tidak Ditemukan");
+            df.setMessage("Data Tidak Ditemukan");
         }
         return df;
     }

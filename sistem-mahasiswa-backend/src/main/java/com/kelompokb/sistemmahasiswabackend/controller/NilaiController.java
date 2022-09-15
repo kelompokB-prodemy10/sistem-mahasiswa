@@ -26,12 +26,12 @@ public class NilaiController {
         Optional<Nilai> optionalNilai  = nilaiRepo.findById(nilaiDto.getIdNilai());
         if (optionalNilai.isPresent()) {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Gagal, Data Nilai Sudah Terdaftar");
+            df.setMessage("Gagal, Data Nilai Sudah Terdaftar");
         } else {
             nilaiRepo.save(nilai);
             df.setStatus(Boolean.TRUE);
             df.setData(nilaiDto);
-            df.setPesan("Data Nilai Tersimpan");
+            df.setMessage("Data Nilai Tersimpan");
         }
         return df;
     }
@@ -56,10 +56,10 @@ public class NilaiController {
             nilaiRepo.save(nilai);
             df.setStatus(Boolean.TRUE);
             df.setData(nilaiDto);
-            df.setPesan("Perubahan Berhasil Tersimpan");
+            df.setMessage("Perubahan Berhasil Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("ID Tidak Ditemukan");
+            df.setMessage("ID Tidak Ditemukan");
         }
         return df;
     }
@@ -71,10 +71,10 @@ public class NilaiController {
         if (nilaiOptional.isPresent()) {
             nilaiRepo.delete(nilaiOptional.get());
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Data Berhasil Dihapus");
+            df.setMessage("Data Berhasil Dihapus");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Data Tidak Ditemukan");
+            df.setMessage("Data Tidak Ditemukan");
         }
         return df;
     }

@@ -11,8 +11,8 @@ import javax.persistence.*;
 public class Nilai extends NilaiDto {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+//    @GeneratedValue(generator = "uuid")
+//    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "id_nilai")
     private Integer idNilai;
     @Column(name = "id_mhs")

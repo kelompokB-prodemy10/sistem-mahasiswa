@@ -2,7 +2,7 @@ package com.kelompokb.sistemmahasiswabackend.model.dto;
 
 public class DefaultResponse<T> {
     private Boolean status;
-    private String pesan;
+    private String message;
     private T data;
 
     public T getData() {
@@ -21,12 +21,12 @@ public class DefaultResponse<T> {
         this.status = status;
     }
 
-    public String getPesan() {
-        return pesan;
+    public String getMessage() {
+        return message;
     }
 
-    public void setPesan(String pesan) {
-        this.pesan = pesan;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
