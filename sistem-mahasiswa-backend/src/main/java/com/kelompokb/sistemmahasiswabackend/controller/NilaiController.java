@@ -19,7 +19,7 @@ public class NilaiController {
     @Autowired
     private NilaiRepo nilaiRepo;
 
-    @PostMapping("/savedata")
+    @PostMapping("/savenilai")
     public DefaultResponse<NilaiDto> saveNilai (@RequestBody NilaiDto nilaiDto) {
         Nilai nilai = convertDtoToEntity(nilaiDto);
         DefaultResponse<NilaiDto> df = new DefaultResponse<>();
