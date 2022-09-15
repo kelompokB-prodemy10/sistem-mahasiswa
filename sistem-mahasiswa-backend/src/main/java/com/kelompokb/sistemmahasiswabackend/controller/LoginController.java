@@ -1,6 +1,7 @@
 package com.kelompokb.sistemmahasiswabackend.controller;
 
 import com.kelompokb.sistemmahasiswabackend.model.dto.DefaultResponse;
+import com.kelompokb.sistemmahasiswabackend.model.dto.LoginDto;
 import com.kelompokb.sistemmahasiswabackend.model.dto.UserDto;
 import com.kelompokb.sistemmahasiswabackend.model.entity.User;
 import com.kelompokb.sistemmahasiswabackend.repository.UserRepo;
@@ -17,17 +18,16 @@ public class LoginController {
     private UserRepo userRepo;
 
     @PostMapping("/login")
-    public DefaultResponse login(@RequestBody UserDto userDto) {
+    public DefaultResponse login(@RequestBody UserDto userDto, LoginDto loginDto) {
         DefaultResponse response = new DefaultResponse();
         Optional<User> optionalUser = userRepo.findByUsernameAndPassword(userDto.getUsername(), userDto.getPassword());
         if (optionalUser.isPresent()) {
             response.setStatus(Boolean.TRUE);
             response.setMessage("Login Berhasil");
             User user = optionalUser.get();
-            userDto.setIdUser(user.getIdUser());
-            userDto.setRole(user.getRole());
-            response.setData(userDto);
-
+            loginDto.setRole(user.getRole());
+            loginDto.setUsername(user.getUsername());
+            response.setData(loginDto);
         } else {
             response.setStatus(Boolean.FALSE);
             response.setMessage("Username atau Password Salah");

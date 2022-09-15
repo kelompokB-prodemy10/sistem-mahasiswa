@@ -11,9 +11,8 @@ public class UserDto {
         return idUser;
     }
 
-    public Object setIdUser(Integer idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
-        return idUser;
     }
 
     public String getUsername() {
@@ -36,8 +35,7 @@ public class UserDto {
         return role;
     }
 
-    public Object setRole(String role) {
+    public void setRole(String role) {
         this.role = role;
-        return role;
     }
 }
