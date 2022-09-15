@@ -18,7 +18,7 @@ public class UjianController {
     @Autowired
     private UjianRepo ujianRepo;
 
-    @PostMapping("/savedata")
+    @PostMapping("/saveujian")
     public DefaultResponse<UjianDto> saveUjian (@RequestBody UjianDto ujianDto) {
         Ujian ujian = convertDtoToEntity(ujianDto);
         DefaultResponse<UjianDto> df = new DefaultResponse<>();
