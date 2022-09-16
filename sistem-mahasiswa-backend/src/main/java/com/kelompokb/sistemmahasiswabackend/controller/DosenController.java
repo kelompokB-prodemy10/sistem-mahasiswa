@@ -18,24 +18,19 @@ public class DosenController {
     @Autowired
     private DosenRepo dosenRepo;
 
-    @PostMapping("/savedata")
+    @PostMapping("/save")
     public DefaultResponse<DosenDto> saveDosen(@RequestBody DosenDto dosenDto) {
         Dosen dosen = convertDtoToEntity(dosenDto);
         DefaultResponse<DosenDto> df = new DefaultResponse<>();
-        Optional<Dosen> optionalDosen = dosenRepo.findById(dosenDto.getIdDosen());
-        if (optionalDosen.isPresent()) {
-            df.setStatus(Boolean.FALSE);
-            df.setPesan("Gagal, Data Sudah Terdaftar");
-        } else {
-            dosenRepo.save(dosen);
-            df.setStatus(Boolean.TRUE);
-            df.setData(dosenDto);
-            df.setPesan("Data Tersimpan");
-        }
+        dosenRepo.save(dosen);
+        df.setStatus(Boolean.TRUE);
+        dosenDto.setIdDosen(dosen.getIdDosen());
+        df.setData(dosenDto);
+        df.setMessage("Data Tersimpan");
         return df;
     }
 
-    @GetMapping("/listdosen")
+    @GetMapping("/list")
     public List<DosenDto> getListDosen() {
         List<DosenDto> list = new ArrayList();
         for (Dosen i : dosenRepo.findAll()) {
@@ -44,7 +39,24 @@ public class DosenController {
         return list;
     }
 
-    @PutMapping("/update/{idDosen}")
+    @GetMapping("/{idDosen}")
+    public DosenDto getMhsById(@PathVariable Integer idDosen) {
+        Optional<Dosen> optionalDosen = dosenRepo.findById(idDosen);
+        DosenDto dto = new DosenDto();
+        if (optionalDosen.isPresent()) {
+            Dosen entity = optionalDosen.get();
+            dto.setIdDosen(entity.getIdDosen());
+            dto.setName(entity.getName());
+            dto.setIdJurusan(entity.getIdJurusan());
+            dto.setNamaJurusan(entity.getJurusan().getNamaJurusan());
+            dto.setIdUser(entity.getIdUser());
+            dto.setUsername(entity.getUser().getUsername());
+            dto.setRole(entity.getUser().getRole());
+        }
+        return dto;
+    }
+
+    @PutMapping("/{idDosen}")
     public DefaultResponse update(@PathVariable Integer idDosen, @RequestBody DosenDto dosenDto) {
         DefaultResponse df = new DefaultResponse();
         Optional<Dosen> optionalDosen = dosenRepo.findById(idDosen);
@@ -57,25 +69,25 @@ public class DosenController {
             dosenRepo.save(dosen);
             df.setStatus(Boolean.TRUE);
             df.setData(dosenDto);
-            df.setPesan("Perubahan Berhasil Tersimpan");
+            df.setMessage("Perubahan Berhasil Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("ID Tidak Ditemukan");
+            df.setMessage("ID Tidak Ditemukan");
         }
         return df;
     }
 
-    @DeleteMapping("/delete/{idDosen}")
+    @DeleteMapping("/{idDosen}")
     public DefaultResponse deletById(@PathVariable Integer idDosen) {
         DefaultResponse df = new DefaultResponse();
         Optional<Dosen> optionalDosen = dosenRepo.findById(idDosen);
         if (optionalDosen.isPresent()) {
             dosenRepo.delete(optionalDosen.get());
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Data Berhasil Dihapus");
+            df.setMessage("Data Berhasil Dihapus");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Data Tidak Ditemukan");
+            df.setMessage("Data Tidak Ditemukan");
         }
         return df;
     }

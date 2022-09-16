@@ -25,7 +25,11 @@ public class NilaiController {
     @Autowired
     private UjianRepo ujianRepo;
 
+<<<<<<< HEAD
     @PostMapping("/savenilai") //save nilai dengan autogenerate OKE
+=======
+    @PostMapping("/savenilai")
+>>>>>>> d6dcbf569d939684292ff5a4b8fe90cc2f6364fa
     public DefaultResponse<NilaiDto> saveNilai (@RequestBody NilaiDto nilaiDto) {
         Nilai nilai = convertDtoToEntity(nilaiDto);
         DefaultResponse<NilaiDto> df = new DefaultResponse<>();
@@ -33,12 +37,12 @@ public class NilaiController {
         Optional<Nilai> optionalUjian = nilaiRepo.findByIdUjian(nilaiDto.getIdUjian());
         if (optionalMhs.isPresent() && optionalUjian.isPresent()) {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Gagal, Data Nilai Sudah Terdaftar");
+            df.setMessage("Gagal, Data Nilai Sudah Terdaftar");
         } else {
             nilaiRepo.save(nilai);
             df.setStatus(Boolean.TRUE);
             df.setData(nilaiDto);
-            df.setPesan("Data Nilai Tersimpan");
+            df.setMessage("Data Nilai Tersimpan");
         }
         return df;
     }
@@ -77,25 +81,29 @@ public class NilaiController {
             nilaiRepo.save(nilai);
             df.setStatus(Boolean.TRUE);
             df.setData(nilaiDto);
-            df.setPesan("Perubahan Berhasil Tersimpan");
+            df.setMessage("Perubahan Berhasil Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("ID Tidak Ditemukan");
+            df.setMessage("ID Tidak Ditemukan");
         }
         return df;
     }
 
+<<<<<<< HEAD
     @DeleteMapping("/delete{idNilai}")
+=======
+    @DeleteMapping("/delete/{idNilai}")
+>>>>>>> d6dcbf569d939684292ff5a4b8fe90cc2f6364fa
     public DefaultResponse deleteById (@PathVariable Integer idNilai) {
         DefaultResponse df = new DefaultResponse();
         Optional<Nilai> nilaiOptional = nilaiRepo.findById(idNilai) ;
         if (nilaiOptional.isPresent()) {
             nilaiRepo.delete(nilaiOptional.get());
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Data Berhasil Dihapus");
+            df.setMessage("Data Berhasil Dihapus");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Data Tidak Ditemukan");
+            df.setMessage("Data Tidak Ditemukan");
         }
         return df;
     }

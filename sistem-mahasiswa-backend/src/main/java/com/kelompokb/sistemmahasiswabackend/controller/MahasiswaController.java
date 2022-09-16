@@ -18,24 +18,19 @@ public class MahasiswaController {
     @Autowired
     private MahasiswaRepo mahasiswaRepo;
 
-    @PostMapping("/savedata")
+    @PostMapping("/save")
     public DefaultResponse<MahasiswaDto> saveMahasiswa(@RequestBody MahasiswaDto mahasiswaDto) {
         Mahasiswa mahasiswa = convertDtoToEntity(mahasiswaDto);
         DefaultResponse<MahasiswaDto> df = new DefaultResponse<>();
-        Optional<Mahasiswa> optionalMahasiswa = mahasiswaRepo.findById(mahasiswaDto.getIdMhs());
-        if (optionalMahasiswa.isPresent()) {
-            df.setStatus(Boolean.FALSE);
-            df.setPesan("Gagal, Data Sudah Terdaftar");
-        } else {
-            mahasiswaRepo.save(mahasiswa);
-            df.setStatus(Boolean.TRUE);
-            df.setData(mahasiswaDto);
-            df.setPesan("Data Tersimpan");
-        }
+        mahasiswaRepo.save(mahasiswa);
+        df.setStatus(Boolean.TRUE);
+        mahasiswaDto.setIdMhs(mahasiswa.getIdMhs());
+        df.setData(mahasiswaDto);
+        df.setMessage("Data Tersimpan");
         return df;
     }
 
-    @GetMapping("/listmhs")
+    @GetMapping("/list")
     public List<MahasiswaDto> getListMahasiswa() {
         List<MahasiswaDto> list = new ArrayList();
         for (Mahasiswa i : mahasiswaRepo.findAll()) {
@@ -44,7 +39,24 @@ public class MahasiswaController {
         return list;
     }
 
-    @PutMapping("/update/{idMhs}")
+    @GetMapping("/{idMhs}")
+    public MahasiswaDto getMhsById(@PathVariable Integer idMhs) {
+        Optional<Mahasiswa> optionalMahasiswa = mahasiswaRepo.findById(idMhs);
+        MahasiswaDto dto = new MahasiswaDto();
+        if (optionalMahasiswa.isPresent()) {
+            Mahasiswa entity = optionalMahasiswa.get();
+            dto.setIdMhs(entity.getIdMhs());
+            dto.setName(entity.getName());
+            dto.setIdJurusan(entity.getIdJurusan());
+            dto.setNamaJurusan(entity.getJurusan().getNamaJurusan());
+            dto.setIdUser(entity.getIdUser());
+            dto.setUsername(entity.getUser().getUsername());
+            dto.setRole(entity.getUser().getRole());
+        }
+        return dto;
+    }
+
+    @PutMapping("/{idMhs}")
     public DefaultResponse update(@PathVariable Integer idMhs, @RequestBody MahasiswaDto mahasiswaDto) {
         DefaultResponse df = new DefaultResponse();
         Optional<Mahasiswa> optionalMahasiswa = mahasiswaRepo.findById(idMhs);
@@ -57,25 +69,25 @@ public class MahasiswaController {
             mahasiswaRepo.save(mahasiswa);
             df.setStatus(Boolean.TRUE);
             df.setData(mahasiswaDto);
-            df.setPesan("Perubahan Berhasil Tersimpan");
+            df.setMessage("Perubahan Berhasil Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("ID Tidak Ditemukan");
+            df.setMessage("ID Tidak Ditemukan");
         }
         return df;
     }
 
-    @DeleteMapping("/delete/{idMhs}")
+    @DeleteMapping("/{idMhs}")
     public DefaultResponse deletById(@PathVariable Integer idMhs) {
         DefaultResponse df = new DefaultResponse();
         Optional<Mahasiswa> optionalMahasiswa = mahasiswaRepo.findById(idMhs);
         if (optionalMahasiswa.isPresent()) {
             mahasiswaRepo.delete(optionalMahasiswa.get());
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Data Berhasil Dihapus");
+            df.setMessage("Data Berhasil Dihapus");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Data Tidak Ditemukan");
+            df.setMessage("Data Tidak Ditemukan");
         }
         return df;
     }

@@ -30,10 +30,10 @@ public class JurusanController {
         DefaultResponse<JurusanDto> response = new DefaultResponse<>();
         Optional<Jurusan> optional = jurusanRepo.findById(jurusanDto.getIdJurusan());
         if (optional.isPresent()) {
-            response.setPesan("Error, Data Telah Tersedia");
+            response.setMessage("Error, Data Telah Tersedia");
         } else {
             jurusanRepo.save(jurusan);
-            response.setPesan("Data Jurusan Berhasil Tersimpan");
+            response.setMessage("Data Jurusan Berhasil Tersimpan");
             response.setData(jurusanDto);
         }
         return response;
@@ -54,10 +54,10 @@ public class JurusanController {
         Optional<Jurusan> jurusanOps = jurusanRepo.findById(idJurusan);
         if (jurusanOps.isPresent()) {
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Jurusan Yang Anda Pilih Telah Tersimpan");
+            df.setMessage("Jurusan Yang Anda Pilih Telah Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Jurusan Yang Anda Pilih Tidak Tersedia");
+            df.setMessage("Jurusan Yang Anda Pilih Tidak Tersedia");
         }
         return df;
     }

@@ -25,6 +25,7 @@ public class UjianController {
     @Autowired
     private MatkulRepo matkulRepo;
 
+
     @PostMapping("/saveujian")
     public DefaultResponse<UjianDto> saveUjian (@RequestBody UjianDto ujianDto) {
         Ujian ujian = convertDtoToEntity(ujianDto);
@@ -32,12 +33,12 @@ public class UjianController {
         Optional<Ujian> optionalMatkul = ujianRepo.findByIdMatkul(ujianDto.getIdMatkul());
         if (optionalMatkul.isPresent()) {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Gagal, Data Ujian Sudah Terdaftar");
+            df.setMessage("Gagal, Data Ujian Sudah Terdaftar");
         } else {
             ujianRepo.save(ujian);
             df.setStatus(Boolean.TRUE);
             df.setData(ujianDto);
-            df.setPesan("Data Ujian Tersimpan");
+            df.setMessage("Data Ujian Tersimpan");
         }
         return df;
     }
@@ -75,10 +76,10 @@ public class UjianController {
             ujianRepo.save(ujian);
             df.setStatus(Boolean.TRUE);
             df.setData(ujianDto);
-            df.setPesan("Perubahan Berhasil Tersimpan");
+            df.setMessage("Perubahan Berhasil Tersimpan");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("ID Tidak Ditemukan");
+            df.setMessage("ID Tidak Ditemukan");
         }
         return df;
     }
@@ -90,10 +91,10 @@ public class UjianController {
         if (optionalUjian.isPresent()) {
             ujianRepo.delete(optionalUjian.get());
             df.setStatus(Boolean.TRUE);
-            df.setPesan("Data Berhasil Dihapus");
+            df.setMessage("Data Berhasil Dihapus");
         } else {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Data Tidak Ditemukan");
+            df.setMessage("Data Tidak Ditemukan");
         }
         return df;
     }

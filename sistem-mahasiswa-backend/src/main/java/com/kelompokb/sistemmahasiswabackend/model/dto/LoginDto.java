@@ -3,7 +3,7 @@ package com.kelompokb.sistemmahasiswabackend.model.dto;
 public class LoginDto {
 
     private String username;
-    private String password;
+    private String role;
 
     public String getUsername() {
         return username;
@@ -13,12 +13,12 @@ public class LoginDto {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getRole() {
+        return role;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

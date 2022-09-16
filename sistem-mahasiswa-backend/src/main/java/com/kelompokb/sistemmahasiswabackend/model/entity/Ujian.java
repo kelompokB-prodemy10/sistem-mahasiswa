@@ -11,6 +11,10 @@ public class Ujian {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+<<<<<<< HEAD
+=======
+    @SequenceGenerator(name = "seq_ujian", sequenceName = "seq_ujian", initialValue = 1, allocationSize = 1)
+>>>>>>> d6dcbf569d939684292ff5a4b8fe90cc2f6364fa
    @Column(name = "id_ujian")
     private Integer idUjian;
 

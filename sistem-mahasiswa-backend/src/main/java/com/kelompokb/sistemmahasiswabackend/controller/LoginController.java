@@ -6,10 +6,7 @@ import com.kelompokb.sistemmahasiswabackend.model.dto.UserDto;
 import com.kelompokb.sistemmahasiswabackend.model.entity.User;
 import com.kelompokb.sistemmahasiswabackend.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -21,38 +18,50 @@ public class LoginController {
     private UserRepo userRepo;
 
     @PostMapping("/login")
-    public DefaultResponse login(@RequestBody LoginDto loginDto) {
+    public DefaultResponse login(@RequestBody UserDto userDto, LoginDto loginDto) {
         DefaultResponse response = new DefaultResponse();
-        Optional<User> optionalUserUsername = userRepo.findByUsername(loginDto.getUsername());
-        Optional<User> optionalUserPassword = userRepo.findByPassword(loginDto.getPassword());
-        if (optionalUserUsername.isPresent()) {
-            if (optionalUserPassword.isPresent()) {
-                response.setStatus(Boolean.TRUE);
-                response.setPesan("Login Berhasil");
-            } else {
-                response.setStatus(Boolean.FALSE);
-                response.setPesan("Password Salah");
-            }
+        Optional<User> optionalUser = userRepo.findByUsernameAndPassword(userDto.getUsername(), userDto.getPassword());
+        if (optionalUser.isPresent()) {
+            response.setStatus(Boolean.TRUE);
+            response.setMessage("Login Berhasil");
+            User user = optionalUser.get();
+            loginDto.setRole(user.getRole());
+            loginDto.setUsername(user.getUsername());
+            response.setData(loginDto);
         } else {
             response.setStatus(Boolean.FALSE);
-            response.setPesan("Username Tidak Terdaftar");
+            response.setMessage("Username atau Password Salah");
         }
         return response;
+    }
+
+    @GetMapping("/{idUser}")
+    public UserDto getUserById(@PathVariable Integer idUser) {
+        Optional<User> optionalUser = userRepo.findById(idUser);
+        UserDto dto = new UserDto();
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            dto.setIdUser(user.getIdUser());
+            dto.setUsername(user.getUsername());
+            dto.setRole(user.getRole());
+        }
+        return dto;
     }
 
     @PostMapping("/register")
     public DefaultResponse<UserDto> saveUser(@RequestBody UserDto userDto) {
         User user = convertDtoToEntity(userDto);
         DefaultResponse<UserDto> df = new DefaultResponse<>();
-        Optional<User> optionalUser = userRepo.findById(userDto.getIdUser());
+        Optional<User> optionalUser = userRepo.findByUsername(userDto.getUsername());
         if (optionalUser.isPresent()) {
             df.setStatus(Boolean.FALSE);
-            df.setPesan("Gagal, Data Sudah Terdaftar");
+            df.setMessage("Gagal, Username Sudah Terdaftar");
         } else {
             userRepo.save(user);
             df.setStatus(Boolean.TRUE);
+            userDto.setIdUser(user.getIdUser());
             df.setData(userDto);
-            df.setPesan("Data Tersimpan");
+            df.setMessage("Data Tersimpan");
         }
         return df;
     }
@@ -65,5 +74,19 @@ public class LoginController {
         user.setRole(userDto.getRole());
 
         return user;
+    }
+
+    @PostMapping("/logout")
+    public DefaultResponse logout(@RequestBody UserDto userDto){
+        DefaultResponse df = new DefaultResponse();
+        Optional<User> optionalUser = userRepo.findByUsernameAndPassword(userDto.getUsername(), userDto.getPassword());
+        if(optionalUser.isPresent()){
+            df.setStatus(Boolean.TRUE);
+            df.setMessage("Logout Berhasil");
+        } else {
+            df.setStatus(Boolean.FALSE);
+            df.setMessage("Error silahkan login terlebih dahulu");
+        }
+        return df;
     }
 }
