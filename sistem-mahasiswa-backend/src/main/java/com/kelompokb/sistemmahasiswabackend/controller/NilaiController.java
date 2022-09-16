@@ -25,11 +25,7 @@ public class NilaiController {
     @Autowired
     private UjianRepo ujianRepo;
 
-<<<<<<< HEAD
     @PostMapping("/savenilai") //save nilai dengan autogenerate OKE
-=======
-    @PostMapping("/savenilai")
->>>>>>> d6dcbf569d939684292ff5a4b8fe90cc2f6364fa
     public DefaultResponse<NilaiDto> saveNilai (@RequestBody NilaiDto nilaiDto) {
         Nilai nilai = convertDtoToEntity(nilaiDto);
         DefaultResponse<NilaiDto> df = new DefaultResponse<>();
@@ -47,10 +43,10 @@ public class NilaiController {
         return df;
     }
     @GetMapping("/listnilai") //list nilai OKE
-    public List<Nilai> getListNilai() {
-        List<Nilai> list = new ArrayList<>();
+    public List<NilaiDto> getListNilai() {
+        List<NilaiDto> list = new ArrayList<>();
         for (Nilai nilai : nilaiRepo.findAll()) {
-        list.add(convertEntityToDto(nilai));
+            list.add(convertEntityToDto(nilai));
     }
     return list;
     }
@@ -89,11 +85,7 @@ public class NilaiController {
         return df;
     }
 
-<<<<<<< HEAD
-    @DeleteMapping("/delete{idNilai}")
-=======
     @DeleteMapping("/delete/{idNilai}")
->>>>>>> d6dcbf569d939684292ff5a4b8fe90cc2f6364fa
     public DefaultResponse deleteById (@PathVariable Integer idNilai) {
         DefaultResponse df = new DefaultResponse();
         Optional<Nilai> nilaiOptional = nilaiRepo.findById(idNilai) ;
@@ -108,22 +100,28 @@ public class NilaiController {
         return df;
     }
 
-    public Nilai convertDtoToEntity (NilaiDto dto){
-        Nilai nilai = new Nilai();
-        nilai.setIdNilai(dto.getIdNilai());
-        nilai.setIdMhs(dto.getIdMhs());
-        nilai.setIdUjian(dto.getIdUjian());
-        nilai.setNilai(dto.getNilai());
-
-        return nilai;
-    }
-    public Nilai convertEntityToDto(Nilai entity){
-        Nilai dto = new Nilai();
+    public NilaiDto convertEntityToDto(Nilai entity) {
+        NilaiDto dto = new NilaiDto();
         dto.setIdNilai(entity.getIdNilai());
         dto.setIdMhs(entity.getIdMhs());
         dto.setIdUjian(entity.getIdUjian());
         dto.setNilai(entity.getNilai());
+        dto.setJudulUjian(entity.getUjian().getJudulUjian());
+        dto.setStatUjian(entity.getUjian().getStatUjian());
+        dto.setName(entity.getMahasiswa().getName());
 
         return dto;
+    }
+
+    public Nilai convertDtoToEntity(NilaiDto nilaiDto) {
+        Nilai nilai = new Nilai();
+        nilai.setIdNilai(nilaiDto.getIdNilai());
+        nilai.setIdMhs(nilaiDto.getIdMhs());
+        nilai.setIdUjian(nilaiDto.getIdUjian());
+        nilai.setIdUjian(nilaiDto.getIdUjian());
+        nilai.setNilai(nilai.getNilai());
+
+
+        return nilai;
     }
 }

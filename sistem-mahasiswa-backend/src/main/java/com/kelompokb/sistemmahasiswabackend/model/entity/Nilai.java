@@ -4,19 +4,11 @@ package com.kelompokb.sistemmahasiswabackend.model.entity;
 import javax.persistence.*;
 
 @Entity
-<<<<<<< HEAD
 @Table(name = "tab_nilai")
 public class Nilai {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-=======
-@Table(name = "tab_haha")
-public class Nilai {
-
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
->>>>>>> d6dcbf569d939684292ff5a4b8fe90cc2f6364fa
     @Column(name = "id_nilai")
     private Integer idNilai;
     @Column(name = "id_mhs")
@@ -26,7 +18,6 @@ public class Nilai {
     @Column(name = "nilai")
     private Integer Nilai;
 
-<<<<<<< HEAD
     @OneToOne
     @JoinColumn(name = "id_ujian", insertable = false, updatable = false)
     private Ujian ujian;
@@ -35,8 +26,7 @@ public class Nilai {
     @JoinColumn(name = "id_mhs", insertable = false, updatable = false)
     private Mahasiswa mahasiswa;
 
-=======
->>>>>>> d6dcbf569d939684292ff5a4b8fe90cc2f6364fa
+
     public Integer getIdNilai() {
         return idNilai;
     }

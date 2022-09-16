@@ -1,10 +1,7 @@
 package com.kelompokb.sistemmahasiswabackend.controller;
 
 import com.kelompokb.sistemmahasiswabackend.model.dto.DefaultResponse;
-import com.kelompokb.sistemmahasiswabackend.model.dto.NilaiDto;
 import com.kelompokb.sistemmahasiswabackend.model.dto.UjianDto;
-import com.kelompokb.sistemmahasiswabackend.model.entity.Dosen;
-import com.kelompokb.sistemmahasiswabackend.model.entity.Nilai;
 import com.kelompokb.sistemmahasiswabackend.model.entity.Ujian;
 import com.kelompokb.sistemmahasiswabackend.repository.MatkulRepo;
 import com.kelompokb.sistemmahasiswabackend.repository.UjianRepo;
