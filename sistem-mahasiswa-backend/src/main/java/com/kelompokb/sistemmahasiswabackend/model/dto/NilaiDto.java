@@ -1,15 +1,12 @@
 package com.kelompokb.sistemmahasiswabackend.model.dto;
 
 public class NilaiDto {
-
     private Integer idNilai;
-    private Integer idMhs;
-    private Integer idUjian;
+//    private Integer idMhs;
+//    private Integer idUjian;
     private  Integer Nilai;
-
     private String judulUjian;
     private String statUjian;
-
     private String name;
 
 
@@ -21,21 +18,21 @@ public class NilaiDto {
         this.idNilai = idNilai;
     }
 
-    public Integer getIdMhs() {
-        return idMhs;
-    }
+//    public Integer getIdMhs() {
+//        return idMhs;
+//    }
 
-    public void setIdMhs(Integer idMhs) {
-        this.idMhs = idMhs;
-    }
-
-    public Integer getIdUjian() {
-        return idUjian;
-    }
-
-    public void setIdUjian(Integer idUjian) {
-        this.idUjian = idUjian;
-    }
+//    public void setIdMhs(Integer idMhs) {
+//        this.idMhs = idMhs;
+//    }
+//
+//    public Integer getIdUjian() {
+//        return idUjian;
+//    }
+//
+//    public void setIdUjian(Integer idUjian) {
+//        this.idUjian = idUjian;
+//    }
 
     public Integer getNilai() {
         return Nilai;

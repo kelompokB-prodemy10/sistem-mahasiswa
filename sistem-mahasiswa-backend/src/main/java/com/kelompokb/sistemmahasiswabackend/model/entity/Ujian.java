@@ -10,25 +10,22 @@ import javax.persistence.*;
 public class Ujian {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-
-    @SequenceGenerator(name = "seq_ujian", sequenceName = "seq_ujian", initialValue = 1, allocationSize = 1)
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name = "id_ujian")
     private Integer idUjian;
 
     @Column(name = "id_matkul")
     private Integer idMatkul;
 
-    @OneToOne
-    @JoinColumn(name = "id_matkul", insertable = false, updatable = false)
-    private Matkul matkul;
-
     @Column(name = "judul_ujian")
     private String judulUjian;
 
     @Column(name = "stat_ujian")
     private String statUjian;
+
+    @OneToOne
+    @JoinColumn(name = "id_matkul", insertable = false, updatable = false)
+    private Matkul matkul;
 
     public Integer getIdUjian() {
         return idUjian;

@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class Nilai {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_nilai")
     private Integer idNilai;

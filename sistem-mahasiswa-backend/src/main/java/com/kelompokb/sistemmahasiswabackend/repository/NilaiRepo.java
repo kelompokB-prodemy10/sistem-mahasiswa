@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface NilaiRepo extends JpaRepository<Nilai, Integer> {
-    Optional<Nilai> findByIdMhs(Integer idMhs);
-
-    Optional<Nilai> findByIdUjian(Integer idUjian);
+//    Optional<Nilai> findByIdMhs(Integer idMhs);
+//
+//    Optional<Nilai> findByIdUjian(Integer idUjian);
     Optional<Nilai> findById(Integer idNilai);
 }
