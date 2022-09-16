@@ -1,8 +1,12 @@
 package com.kelompokb.sistemmahasiswabackend.controller;
 
 import com.kelompokb.sistemmahasiswabackend.model.dto.DefaultResponse;
+import com.kelompokb.sistemmahasiswabackend.model.dto.NilaiDto;
 import com.kelompokb.sistemmahasiswabackend.model.dto.UjianDto;
+import com.kelompokb.sistemmahasiswabackend.model.entity.Dosen;
+import com.kelompokb.sistemmahasiswabackend.model.entity.Nilai;
 import com.kelompokb.sistemmahasiswabackend.model.entity.Ujian;
+import com.kelompokb.sistemmahasiswabackend.repository.MatkulRepo;
 import com.kelompokb.sistemmahasiswabackend.repository.UjianRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +22,15 @@ public class UjianController {
     @Autowired
     private UjianRepo ujianRepo;
 
+    @Autowired
+    private MatkulRepo matkulRepo;
+
     @PostMapping("/saveujian")
     public DefaultResponse<UjianDto> saveUjian (@RequestBody UjianDto ujianDto) {
         Ujian ujian = convertDtoToEntity(ujianDto);
         DefaultResponse<UjianDto> df = new DefaultResponse<>();
-        Optional<Ujian> optionalUjian = ujianRepo.findById(ujianDto.getIdUjian());
-        if (optionalUjian.isPresent()) {
+        Optional<Ujian> optionalMatkul = ujianRepo.findByIdMatkul(ujianDto.getIdMatkul());
+        if (optionalMatkul.isPresent()) {
             df.setStatus(Boolean.FALSE);
             df.setPesan("Gagal, Data Ujian Sudah Terdaftar");
         } else {
@@ -34,14 +41,27 @@ public class UjianController {
         }
         return df;
     }
-    @GetMapping("/listujian")
-    public List<UjianDto> getListUjian(){
-       List<UjianDto> list = new ArrayList<>();
-       for (Ujian ujian : ujianRepo.findAll()){
-           list.add(convertEntityToDto(ujian));
-       }
-       return list;
-}
+    @GetMapping("/listujian") //list nilai OKE
+    public List<Ujian> getListUjian() {
+        List<Ujian> list = new ArrayList<>();
+        for (Ujian ujian : ujianRepo.findAll()) {
+            list.add(convertEntityToDto(ujian));
+        }
+        return list;
+    }
+    @GetMapping("/getujian/{idUjian}")
+    public UjianDto getById(@PathVariable Integer idUjian){
+        Optional<Ujian> optionalUjian = ujianRepo.findById(idUjian);
+        UjianDto dto = new UjianDto();
+        if (optionalUjian.isPresent()){
+            Ujian entity = optionalUjian.get();
+            dto.setIdUjian(entity.getIdUjian());
+            dto.setJudulUjian(entity.getJudulUjian());
+            dto.setIdMatkul(entity.getIdMatkul());
+            dto.setStatUjian(entity.getStatUjian());
+        }
+        return dto;
+    }
     @PutMapping("/update/{idUjian}")
     public DefaultResponse update(@PathVariable Integer idUjian, @RequestBody UjianDto ujianDto) {
         DefaultResponse df = new DefaultResponse();
@@ -63,12 +83,12 @@ public class UjianController {
         return df;
     }
 
-    @DeleteMapping("/delete/{idDosen}")
-    public DefaultResponse deleteById (@PathVariable Integer ujianId) {
+    @DeleteMapping("/delete/{idUjian}")
+    public DefaultResponse deletById(@PathVariable Integer idUjian) {
         DefaultResponse df = new DefaultResponse();
-        Optional<Ujian> ujianOptional = ujianRepo.findById(ujianId) ;
-        if (ujianOptional.isPresent()) {
-            ujianRepo.delete(ujianOptional.get());
+        Optional<Ujian> optionalUjian = ujianRepo.findById(idUjian);
+        if (optionalUjian.isPresent()) {
+            ujianRepo.delete(optionalUjian.get());
             df.setStatus(Boolean.TRUE);
             df.setPesan("Data Berhasil Dihapus");
         } else {
@@ -87,13 +107,13 @@ public class UjianController {
 
         return ujian;
     }
-    public Ujian convertEntityToDto(Ujian dto){
-        Ujian ujian = new Ujian();
-        ujian.setIdUjian(dto.getIdUjian());
-        ujian.setJudulUjian(dto.getJudulUjian());
-        ujian.setIdMatkul(dto.getIdMatkul());
-        ujian.setStatUjian(dto.getStatUjian());
+    public Ujian convertEntityToDto(Ujian entity){
+        Ujian dto = new Ujian();
+        dto.setIdUjian(entity.getIdUjian());
+        dto.setJudulUjian(entity.getJudulUjian());
+        dto.setIdMatkul(entity.getIdMatkul());
+        dto.setStatUjian(entity.getStatUjian());
 
-        return ujian;
+        return dto;
     }
 }
