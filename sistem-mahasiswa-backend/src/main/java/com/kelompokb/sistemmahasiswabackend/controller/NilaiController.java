@@ -67,7 +67,7 @@ public class NilaiController {
     @PutMapping("/update/{idNilai}")
     public DefaultResponse update(@PathVariable Integer idNilai, @RequestBody NilaiDto nilaiDto) {
         DefaultResponse df = new DefaultResponse();
-        Optional<Nilai> nilaiOptional = nilaiRepo.findById(idNilai);
+        Optional<Nilai> nilaiOptional = nilaiRepo.findByIdUjian(nilaiDto.getIdUjian());
         Nilai nilai = nilaiOptional.get();
         if (nilaiOptional.isPresent()) {
             nilai.setIdNilai(nilaiDto.getIdNilai());
