@@ -1,5 +1,7 @@
 package com.kelompokb.sistemmahasiswabackend.model.dto;
 
+import com.kelompokb.sistemmahasiswabackend.model.entity.Matkul;
+
 public class UjianDto {
 
     private Integer idUjian;
@@ -7,6 +9,8 @@ public class UjianDto {
     private String judulUjian;
     private String statUjian;
     private String namaMatkul;
+
+    private Matkul matkul;
 
     public Integer getIdUjian() {
         return idUjian;
@@ -46,5 +50,13 @@ public class UjianDto {
 
     public void setNamaMatkul(String namaMatkul) {
         this.namaMatkul = namaMatkul;
+    }
+
+    public Matkul getMatkul() {
+        return matkul;
+    }
+
+    public void setMatkul(Matkul matkul) {
+        this.matkul = matkul;
     }
 }

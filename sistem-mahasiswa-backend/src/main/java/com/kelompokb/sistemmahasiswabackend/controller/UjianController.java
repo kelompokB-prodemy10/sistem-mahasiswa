@@ -57,6 +57,7 @@ public class UjianController {
             dto.setJudulUjian(entity.getJudulUjian());
             dto.setIdMatkul(entity.getIdMatkul());
             dto.setStatUjian(entity.getStatUjian());
+            dto.setMatkul(entity.getMatkul());
         }
         return dto;
     }
