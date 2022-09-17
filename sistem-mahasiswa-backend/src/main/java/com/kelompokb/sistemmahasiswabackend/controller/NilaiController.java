@@ -76,8 +76,11 @@ public class NilaiController {
         if (optionalNilai.isPresent()) {
             Nilai entity = optionalNilai.get();
             dto.setIdNilai(entity.getIdNilai());
-//            dto.setIdMhs(entity.getIdMhs());
-//            dto.setIdUjian(entity.getIdUjian());
+            dto.setIdMhs(entity.getMahasiswa().getIdMhs());
+            dto.setName(entity.getMahasiswa().getName());
+            dto.setIdUjian(entity.getUjian().getIdUjian());
+            dto.setJudulUjian(entity.getUjian().getJudulUjian());
+            dto.setStatUjian(entity.getUjian().getStatUjian());
             dto.setNilai(entity.getNilai());
         }
         return dto;
@@ -125,12 +128,12 @@ public class NilaiController {
     public NilaiDto convertEntityToDto(Nilai entity) {
         NilaiDto dto = new NilaiDto();
         dto.setIdNilai(entity.getIdNilai());
-//        dto.setIdMhs(entity.getIdMhs());
-//        dto.setIdUjian(entity.getIdUjian());
-        dto.setNilai(entity.getNilai());
+        dto.setIdMhs(entity.getMahasiswa().getIdMhs());
+        dto.setName(entity.getMahasiswa().getName());
+        dto.setIdUjian(entity.getUjian().getIdUjian());
         dto.setJudulUjian(entity.getUjian().getJudulUjian());
         dto.setStatUjian(entity.getUjian().getStatUjian());
-        dto.setName(entity.getMahasiswa().getName());
+        dto.setNilai(entity.getNilai());
 
         return dto;
     }
