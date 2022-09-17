@@ -103,6 +103,7 @@ public class UjianController {
         ujian.setIdMatkul(dto.getIdMatkul());
         ujian.setStatUjian(dto.getStatUjian());
 
+
         return ujian;
     }
     public Ujian convertEntityToDto(Ujian entity){
@@ -111,6 +112,7 @@ public class UjianController {
         dto.setJudulUjian(entity.getJudulUjian());
         dto.setIdMatkul(entity.getIdMatkul());
         dto.setStatUjian(entity.getStatUjian());
+        dto.setMatkul(entity.getMatkul());
 
         return dto;
     }

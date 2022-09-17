@@ -28,34 +28,37 @@ public class NilaiController {
 
     @PostMapping("/savenilai") //save nilai dengan autogenerate OKE
     public DefaultResponse<NilaiIdDto> saveNilai(@RequestBody NilaiIdDto nilaiDto) {
-//        Nilai nilai = convertDtoToEntity(nilaiDto);
-//        DefaultResponse<NilaiIdDto> df = new DefaultResponse<>();
-//        Optional<Nilai> optionalMhs  = nilaiRepo.findByIdMhs(nilaiDto.getIdMhs());
-//        Optional<Nilai> optionalUjian = nilaiRepo.findByIdUjian(nilaiDto.getIdUjian());
-//        if (optionalMhs.isPresent() && optionalUjian.isPresent()) {
-//            df.setStatus(Boolean.FALSE);
-//            df.setMessage("Gagal, Data Nilai Sudah Terdaftar");
-//        } else {
-//            nilaiRepo.save(nilai);
-//            df.setStatus(Boolean.TRUE);
-//            df.setData(nilaiDto);
-//            df.setMessage("Data Nilai Tersimpan");
-//        }
-
         Nilai nilai = convertDtoToEntity(nilaiDto);
         DefaultResponse<NilaiIdDto> df = new DefaultResponse<>();
-        Optional<Nilai> optionalNilai = nilaiRepo.findById(nilaiDto.getIdNilai());
-        if (optionalNilai.isPresent()) {
+        Optional<Nilai> optionalMhs  = nilaiRepo.findByIdMhs(nilaiDto.getIdMhs());
+        Optional<Nilai> optionalUjian = nilaiRepo.findByIdUjian(nilaiDto.getIdUjian());
+        if (optionalMhs.isPresent() && optionalUjian.isPresent()) {
             df.setStatus(Boolean.FALSE);
-            df.setMessage("Gagal");
+            df.setMessage("Gagal, Data Nilai Sudah Terdaftar");
         } else {
             nilaiRepo.save(nilai);
             df.setStatus(Boolean.TRUE);
-            df.setMessage("data tersimpan");
             df.setData(nilaiDto);
+            df.setMessage("Data Nilai Tersimpan");
         }
         return df;
     }
+//    @PostMapping("/savenilai") //save nilai dengan autogenerate OKE
+//    public DefaultResponse<NilaiIdDto> saveNilai(@RequestBody NilaiIdDto nilaiDto) {
+//        Nilai nilai = convertDtoToEntity(nilaiDto);
+//        DefaultResponse<NilaiIdDto> df = new DefaultResponse<>();
+//       Optional<Nilai> optionalNilai = nilaiRepo.findById(nilaiDto.getIdNilai());
+//     if (optionalNilai.isPresent()) {
+//            df.setStatus(Boolean.FALSE);
+//            df.setMessage("Gagal");
+//        } else {
+//            nilaiRepo.save(nilai);
+//           df.setStatus(Boolean.TRUE);
+//           df.setMessage("data tersimpan");
+//            df.setData(nilaiDto);
+//        }
+//        return df;
+//}
 
     @GetMapping("/listnilai") //list nilai OKE
     public List<NilaiDto> getListNilai() {
@@ -80,15 +83,16 @@ public class NilaiController {
         return dto;
     }
 
-    @PutMapping("/update/{idNilai}")
-    public DefaultResponse update(@PathVariable Integer idNilai, @RequestBody NilaiDto nilaiDto) {
+    @PutMapping("/update")
+    public DefaultResponse update(@RequestBody NilaiDto nilaiDto) {
         DefaultResponse df = new DefaultResponse();
-        Optional<Nilai> nilaiOptional = nilaiRepo.findById(idNilai);
-        Nilai nilai = nilaiOptional.get();
-        if (nilaiOptional.isPresent()) {
+        Optional<Nilai> optionalMhs  = nilaiRepo.findByIdMhs(nilaiDto.getIdMhs());
+        Optional<Nilai> optionalUjian = nilaiRepo.findByIdUjian(nilaiDto.getIdUjian());
+        if (optionalMhs.isPresent() && optionalUjian.isPresent()) {
+            Nilai nilai = optionalMhs.get();
             nilai.setIdNilai(nilaiDto.getIdNilai());
-//            nilai.setIdMhs(nilaiDto.getIdMhs());
-//            nilai.setIdUjian(nilaiDto.getIdUjian());
+            nilai.setIdMhs(nilaiDto.getIdMhs());
+            nilai.setIdUjian(nilaiDto.getIdUjian());
             nilai.setNilai(nilaiDto.getNilai());
             nilaiRepo.save(nilai);
             df.setStatus(Boolean.TRUE);
@@ -101,12 +105,14 @@ public class NilaiController {
         return df;
     }
 
-    @DeleteMapping("/delete/{idNilai}")
-    public DefaultResponse deleteById(@PathVariable Integer idNilai) {
+    @DeleteMapping("/delete")
+    public DefaultResponse deleteById(@RequestBody NilaiDto nilaiDto) {
         DefaultResponse df = new DefaultResponse();
-        Optional<Nilai> nilaiOptional = nilaiRepo.findById(idNilai);
-        if (nilaiOptional.isPresent()) {
-            nilaiRepo.delete(nilaiOptional.get());
+        Optional<Nilai> optionalMhs  = nilaiRepo.findByIdMhs(nilaiDto.getIdMhs());
+        Optional<Nilai> optionalUjian = nilaiRepo.findByIdUjian(nilaiDto.getIdUjian());
+        Nilai nilai = convertDtoToEnNilai(nilaiDto);
+        if (optionalMhs.isPresent() && optionalUjian.isPresent()){
+            nilaiRepo.delete(nilai);
             df.setStatus(Boolean.TRUE);
             df.setMessage("Data Berhasil Dihapus");
         } else {
@@ -137,5 +143,14 @@ public class NilaiController {
         nilai.setNilai(nilaiDto.getNilai());
 
         return nilai;
+    }
+
+    public Nilai convertDtoToEnNilai(NilaiDto dto){
+        Nilai n = new Nilai();
+        n.setIdNilai(dto.getIdNilai());
+        n.setIdMhs(dto.getIdMhs());
+        n.setIdUjian(dto.getIdUjian());
+        n.setNilai(dto.getNilai());
+        return n;
     }
 }
