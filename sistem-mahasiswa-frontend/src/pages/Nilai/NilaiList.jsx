@@ -16,6 +16,7 @@ export default function NilaiList() {
                                 <th scope="col">Ujian</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Nilai</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,6 +26,15 @@ export default function NilaiList() {
                                 <td>UTS Ganjil</td>
                                 <td>John Doe</td>
                                 <td>100</td>
+                                <td>
+                                    <a href="/nilai/form" class="btn btn-info btn-circle">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a href="#" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
@@ -32,6 +42,15 @@ export default function NilaiList() {
                                 <td>UTS Ganjil</td>
                                 <td>John Doe</td>
                                 <td>100</td>
+                                <td>
+                                    <a href="/nilai/form" class="btn btn-info btn-circle">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a href="#" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
@@ -39,6 +58,15 @@ export default function NilaiList() {
                                 <td>UTS Ganjil</td>
                                 <td>John Doe</td>
                                 <td>100</td>
+                                <td>
+                                    <a href="/nilai/form" class="btn btn-info btn-circle">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a href="#" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
