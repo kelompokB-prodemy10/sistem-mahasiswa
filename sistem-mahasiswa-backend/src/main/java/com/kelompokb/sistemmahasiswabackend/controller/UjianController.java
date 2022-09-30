@@ -22,7 +22,7 @@ public class UjianController {
     @Autowired
     private MatkulRepo matkulRepo;
 
-
+    @CrossOrigin
     @PostMapping("/saveujian")
     public DefaultResponse<UjianDto> saveUjian (@RequestBody UjianDto ujianDto) {
         Ujian ujian = convertDtoToEntity(ujianDto);
@@ -39,6 +39,7 @@ public class UjianController {
         }
         return df;
     }
+    @CrossOrigin
     @GetMapping("/listujian") //list nilai OKE
     public List<Ujian> getListUjian() {
         List<Ujian> list = new ArrayList<>();
@@ -47,6 +48,7 @@ public class UjianController {
         }
         return list;
     }
+    @CrossOrigin
     @GetMapping("/getujian/{idUjian}")
     public UjianDto getById(@PathVariable Integer idUjian){
         Optional<Ujian> optionalUjian = ujianRepo.findById(idUjian);
@@ -61,6 +63,7 @@ public class UjianController {
         }
         return dto;
     }
+    @CrossOrigin
     @PutMapping("/update/{idUjian}")
     public DefaultResponse update(@PathVariable Integer idUjian, @RequestBody UjianDto ujianDto) {
         DefaultResponse df = new DefaultResponse();
@@ -81,7 +84,7 @@ public class UjianController {
         }
         return df;
     }
-
+    @CrossOrigin
     @DeleteMapping("/delete/{idUjian}")
     public DefaultResponse deletById(@PathVariable Integer idUjian) {
         DefaultResponse df = new DefaultResponse();
@@ -103,7 +106,6 @@ public class UjianController {
         ujian.setJudulUjian(dto.getJudulUjian());
         ujian.setIdMatkul(dto.getIdMatkul());
         ujian.setStatUjian(dto.getStatUjian());
-
 
         return ujian;
     }

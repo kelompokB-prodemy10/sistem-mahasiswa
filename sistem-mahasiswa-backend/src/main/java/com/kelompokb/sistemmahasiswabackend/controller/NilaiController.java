@@ -26,6 +26,7 @@ public class NilaiController {
     @Autowired
     private UjianRepo ujianRepo;
 
+    @CrossOrigin
     @PostMapping("/savenilai") //save nilai dengan autogenerate OKE
     public DefaultResponse<NilaiIdDto> saveNilai(@RequestBody NilaiIdDto nilaiDto) {
         Nilai nilai = convertDtoToEntity(nilaiDto);
@@ -59,7 +60,7 @@ public class NilaiController {
 //        }
 //        return df;
 //}
-
+    @CrossOrigin
     @GetMapping("/listnilai") //list nilai OKE
     public List<NilaiDto> getListNilai() {
         List<NilaiDto> list = new ArrayList<>();
@@ -69,6 +70,7 @@ public class NilaiController {
         return list;
     }
 
+    @CrossOrigin
     @GetMapping("/getnilai/{idNilai}")
     public NilaiDto getById(@PathVariable Integer idNilai) {
         Optional<Nilai> optionalNilai = nilaiRepo.findById(idNilai);
@@ -85,7 +87,7 @@ public class NilaiController {
         }
         return dto;
     }
-
+    @CrossOrigin
     @PutMapping("/update")
     public DefaultResponse update(@RequestBody NilaiDto nilaiDto) {
         DefaultResponse df = new DefaultResponse();
@@ -108,6 +110,7 @@ public class NilaiController {
         return df;
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete")
     public DefaultResponse deleteById(@RequestBody NilaiDto nilaiDto) {
         DefaultResponse df = new DefaultResponse();
