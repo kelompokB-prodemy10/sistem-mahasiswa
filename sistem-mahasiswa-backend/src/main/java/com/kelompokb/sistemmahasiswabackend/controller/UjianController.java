@@ -60,6 +60,7 @@ public class UjianController {
             dto.setIdMatkul(entity.getIdMatkul());
             dto.setStatUjian(entity.getStatUjian());
             dto.setMatkul(entity.getMatkul());
+
         }
         return dto;
     }
